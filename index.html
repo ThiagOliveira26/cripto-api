@@ -1,0 +1,105 @@
+  
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>BitCoin API </title>
+        <link rel="stylesheet" type="text/css"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+        <meta charset="utf-8">      
+        
+        <style>
+            .bigBox{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;    
+                align-items: center;
+                text-align: center;    
+                height: 100px;
+                padding-top: 5px;
+                padding-bottom: 20px;
+                border-bottom: solid black .2rem;
+            }
+
+            .bigBox .logo img{
+               align-self: center;
+               /* flex-basis: 0; */
+               height: 100px;
+               width: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">Inserindo API Bitcoin</li>
+            </ol>
+          </nav>
+        
+          <div class="bigBox">
+              <div class="logo">
+                <img src="Bitcoin.png" alt="BitCoin image">
+              </div>
+              <div class="high">
+                  <div class="name">
+                      <h3>High</h3>
+                  </div>
+                  <div class="value">
+                      <p></p>
+                  </div>
+              </div>
+              <div class="low">
+                  <div class="name">
+                      <h3>Low</h3>
+                  </div>
+                  <div class="value">
+                      <p></p>
+                  </div>
+              </div>
+              <div class="buy">
+                  <div class="name">
+                      <h3>Buy</h3>
+                  </div>
+                  <div class="value">
+                      <p></p>
+                  </div>
+              </div>
+              <div class="sell">
+                  <div class="name">
+                      <h3>Sell</h3>
+                  </div>
+                  <div class="value">
+                      <p></p>
+                  </div>
+              </div>
+          </div>
+       
+
+        <script type="text/javascript">
+           
+        //GET Fetch Requisition
+        fetch('https://www.mercadobitcoin.net/api/BTC/ticker')
+                .then((response) => {
+                    if(!response.ok) throw new Error('Erro ao executar a requisição, status ' + response.status);
+                    return response.json();
+            })
+            .then((api) => {
+                                    
+                // console.log(api.ticker.buy)
+                // // valor
+                 console.log(api.ticker)
+                // // object ticker
+                // console.log(api)
+                // // possui o object ticker e o prototype - retorna a api 
+
+                //document.getElementById("coins").innerHTML = api.ticker.buy;
+                document.querySelector('.bigBox .high .value p').innerHTML = "R$ "+ parseInt(api.ticker.high).toFixed(2)
+                document.querySelector('.bigBox .buy .value p').innerHTML = "R$ "+parseInt(api.ticker.buy).toFixed(2)
+                document.querySelector('.bigBox .low .value p').innerHTML = "R$ "+parseInt(api.ticker.low).toFixed(2)
+                document.querySelector('.bigBox .sell .value p').innerHTML = "R$ "+parseInt(api.ticker.sell).toFixed(2)
+            })
+            .catch((error) => {
+                console.error(error.message);
+            });
+        </script>    
+    </body>
+</html>
